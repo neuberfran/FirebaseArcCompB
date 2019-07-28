@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'  // add this line
 
 android {
     compileSdkVersion 27
@@ -57,7 +60,11 @@ dependencies {
     implementation'com.github.bumptech.glide:glide:4.4.0'
     implementation'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
 }
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}
