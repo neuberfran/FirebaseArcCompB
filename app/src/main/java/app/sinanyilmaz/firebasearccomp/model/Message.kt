@@ -1,11 +1,20 @@
 package app.sinanyilmaz.firebasearccomp.model
 
+//
+//interface Message {
+//
+//    var text: String
+//
+//    var userName: String
+//
+//    var photoUrl: String
+//}
 
-interface Message {
 
-    var text: String
+open class Message {
 
-    var userName: String
+    open var text: String? = null
+    open var userName: String? = null
+    open var photoUrl: String? = null
 
-    var photoUrl: String
 }

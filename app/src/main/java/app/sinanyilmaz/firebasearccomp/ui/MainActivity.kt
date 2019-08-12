@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity(), MessageListFragment.MyFragmentListener
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, mComposerFragment)
-
-
-
-
                 .addToBackStack(null)
                 .commit()
     }

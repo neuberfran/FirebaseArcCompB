@@ -40,7 +40,7 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
         val message = mMessageList!![position]
         holder.binding.message = mMessageList!![position]
         //holder.binding.name.setText(message.getUserName());
-        if (message.photoUrl != null && !message.photoUrl.isEmpty())
+        if (message.photoUrl != null && !message.photoUrl!!.isEmpty())
             Glide.with(holder.binding.photoImageView.context)
                     .load(message.photoUrl)
                     .thumbnail(0.01f)
