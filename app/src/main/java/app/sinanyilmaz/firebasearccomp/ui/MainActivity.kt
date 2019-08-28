@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 
 import app.sinanyilmaz.firebasearccomp.R
 
-
 class MainActivity : AppCompatActivity(), MessageListFragment.MyFragmentListenerImpl {
 
     private val mComposerFragment = NewPostFragment()

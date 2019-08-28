@@ -24,6 +24,12 @@ import app.sinanyilmaz.firebasearccomp.viewmodel.MessagesListViewModel
 
 import android.app.Activity.RESULT_CANCELED
 import android.arch.lifecycle.Observer
+import com.bumptech.glide.Registry
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
+import com.firebase.ui.storage.images.FirebaseImageLoader
+import com.google.firebase.storage.StorageReference
+import java.io.InputStream
 
 
 class NewPostFragment : Fragment() {
@@ -32,8 +38,6 @@ class NewPostFragment : Fragment() {
     private var mBinding: NewPostFragmentBinding? = null
     private var mViewModel: MessagesListViewModel? = null
     private var mUserName: String? = null
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,7 +48,6 @@ class NewPostFragment : Fragment() {
         // DataBinding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.new_post_fragment, container, false)
 
-
         mViewModel = ViewModelProviders.of(activity!!).get(MessagesListViewModel::class.java!!)
 
         // attach listeners
@@ -52,9 +55,8 @@ class NewPostFragment : Fragment() {
             var isSuccess = it
             if (isSuccess!!) {
 
-
                 if (!mViewModel!!.photoUrl.isEmpty()) {
-                    Glide.with(mBinding!!.photoView.context)
+                    GlideApp.with(mBinding!!.photoView.context)
                             .load(mViewModel!!.photoUrl)
                             .into(mBinding!!.photoView)
                     Toast.makeText(context, "Picture Upload successful", Toast.LENGTH_SHORT).show()
@@ -121,11 +123,8 @@ class NewPostFragment : Fragment() {
 
         }
 
-
         return mBinding!!.root
-
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -145,7 +144,6 @@ class NewPostFragment : Fragment() {
 
     }
 
-
     private fun dismissKeyboard() {
         val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (imm != null && null != activity!!.currentFocus)
@@ -157,6 +155,16 @@ class NewPostFragment : Fragment() {
 
         private val TAG = "NewPostFragment"
         private val RC_PHOTO_PICKER = 1
+    }
+
+    @GlideModule
+    inner class MyAppGlideModule : AppGlideModule() {
+
+        override fun registerComponents(context: Context , glide: Glide , registry: Registry) {
+            // Register FirebaseImageLoader to handle StorageReference
+            registry.append(StorageReference::class.java , InputStream::class.java ,
+                    FirebaseImageLoader.Factory())
+        }
     }
 
 }
